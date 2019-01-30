@@ -1,0 +1,23 @@
+version: '3'
+services:  
+docker_ntierdemo_app:  
+image: jeevasubburaj/dockerntierdemo_app:v1  
+build:  
+context: ./NtierMvc/bin/Release/Publish  
+depends_on:  
+- docker_ntierdemo_db  
+hostname: ${APP_UUID}  
+container_name: ${APP_UUID}   
+docker_ntierdemo_db:  
+image: jeevasubburaj/dockerntierdemo_db:v1  
+build:  
+context: ./Database  
+ports:  
+- "14333:1433"  
+env_file: db_dev.env  
+hostname: ${DB_UUID}  
+container_name: ${DB_UUID}   
+networks:  
+docker_ntierdemo-net:  
+ipam:  
+driver: default  
